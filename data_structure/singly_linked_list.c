@@ -157,7 +157,7 @@ void *owl_sll_fremove(owl_sll_t *list)
     return data;
 }
 
-void owl_sll_print(owl_sll_t *list, void (*format)(void *data), void *connector_symbol)
+void owl_sll_print(owl_sll_t *list, void (*format)(void *data), void *connection_sym)
 {
     if (!list->length)
     {
@@ -166,16 +166,16 @@ void owl_sll_print(owl_sll_t *list, void (*format)(void *data), void *connector_
     }
 
     owl_sll_node_t *cursor = list->head;
-    char *connector = connector_symbol ? connector_symbol : "|";
+    char *conn_sym = connection_sym ? connection_sym : "->";
 
     while (cursor)
     {
         format(cursor->data);
-        printf(" %s ", connector);
+        printf(" %s ", conn_sym);
         cursor = cursor->next;
     }
 
-    printf("\n");
+    printf("END\n");
 }
 
 // Getters
