@@ -8,9 +8,10 @@
 #ifndef queue_h
 #define queue_h
 
-#include <stdio.h>
-#include <stdbool.h>
 #include "singly_linked_list.h"
+#include <stdbool.h>
+#include <stdio.h>
+#include <sys/types.h>
 
 typedef struct queue owl_queue_t;
 
@@ -20,6 +21,7 @@ int owl_queue_enqueue(owl_queue_t *queue, void *data);
 void *owl_queue_dequeue(owl_queue_t *queue);
 bool owl_queue_is_empty(owl_queue_t *queue);
 bool owl_queue_is_full(owl_queue_t *queue);
+void owl_queue_print(owl_queue_t *queue, void (*format)(void *data), void *connection_sym);
 
 // Getters
 

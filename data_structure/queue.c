@@ -54,6 +54,29 @@ void *owl_queue_dequeue(owl_queue_t *queue)
     return data;
 }
 
+void owl_queue_print(owl_queue_t *queue, void (*format)(void *data), void *connection_sym)
+{
+    if (!owl_sll_length(queue->_internal_list))
+    {
+        printf("EMPTY\n");
+        return;
+    }
+
+    owl_sll_node_t *cursor = owl_sll_head(queue->_internal_list);
+    char *conn_sym = connection_sym ? connection_sym : "|";
+
+    printf("%s ", conn_sym);
+
+    while (cursor)
+    {
+        format(cursor->data);
+        printf(" %s ", conn_sym);
+        cursor = cursor->next;
+    }
+
+    printf("\n");
+}
+
 bool owl_queue_is_empty(owl_queue_t *queue)
 {
     return queue->n_items == 0;
