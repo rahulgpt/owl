@@ -5,10 +5,11 @@
 //  Created by Rahul Gupta on 27/09/22.
 //
 
-#include <stdlib.h>
-#include <stdbool.h>
 #include "queue.h"
 #include "singly_linked_list.h"
+#include <stdbool.h>
+#include <stdlib.h>
+#include <sys/types.h>
 
 /* Opaque type */
 
@@ -53,7 +54,6 @@ void *owl_queue_dequeue(owl_queue_t *queue)
     return data;
 }
 
-
 bool owl_queue_is_empty(owl_queue_t *queue)
 {
     return queue->n_items == 0;
@@ -75,4 +75,3 @@ u_long owl_queue_n_items(owl_queue_t *queue)
 {
     return queue->n_items;
 }
-

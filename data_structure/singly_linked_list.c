@@ -8,6 +8,7 @@
 #include "singly_linked_list.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/types.h>
 
 /* Opaque type */
 
@@ -42,16 +43,16 @@ void owl_sll_destroy(owl_sll_t *list)
         free(list);
         return;
     }
-    
+
     owl_sll_node_t *cursor = list->head;
-    
+
     while (cursor)
     {
         free(cursor->data);
         free(cursor);
         cursor = cursor->next;
     }
-    
+
     free(list);
 }
 
@@ -60,11 +61,11 @@ static owl_sll_node_t *node_init(void *data, size_t size)
     static unsigned int id = 0;
     owl_sll_node_t *node = malloc(sizeof(owl_sll_node_t));
     node->data = malloc(size);
-    
+
     // copy the content of the data
     for (int i = 0; i < size; i++)
         *(char *)(node->data + i) = *(char *)(data + i);
-    
+
     node->next = NULL;
     node->id = id++;
     return node;
@@ -98,25 +99,25 @@ void *owl_sll_bremove(owl_sll_t *list)
 {
     if (!list->length) return NULL;
     owl_sll_node_t *cursor = list->head;
-    
-    while(cursor->next && cursor->next->next)
+
+    while (cursor->next && cursor->next->next)
     {
         cursor = cursor->next;
     }
-    
+
     void *data = cursor->data;
-    
+
     node_destroy(cursor->next);
     list->tail = cursor;
     list->tail->next = NULL;
     list->length--;
-    
+
     if (list->length == 0)
     {
         list->head = NULL;
         list->tail = NULL;
     }
-    
+
     return data;
 }
 
@@ -131,7 +132,7 @@ void owl_sll_finsert(owl_sll_t *list, void *data)
     else
     {
         node->next = list->head;
-        list->head =  node;
+        list->head = node;
     }
     list->length++;
 }
@@ -139,20 +140,20 @@ void owl_sll_finsert(owl_sll_t *list, void *data)
 void *owl_sll_fremove(owl_sll_t *list)
 {
     if (!list->length) return NULL;
-    
+
     void *data = list->head->data;
     owl_sll_node_t *node_to_destroy = list->head;
-    
+
     list->head = list->head->next;
     node_destroy(node_to_destroy);
     list->length--;
-    
+
     if (list->length == 0)
     {
         list->head = NULL;
         list->tail = NULL;
     }
-    
+
     return data;
 }
 
@@ -163,17 +164,18 @@ void owl_sll_print(owl_sll_t *list, void (*format)(void *data), void *connector_
         printf("EMPTY\n");
         return;
     }
-    
+
     owl_sll_node_t *cursor = list->head;
-    char *connector = connector_symbol ? connector_symbol : "->";
-    
-    while (cursor) {
+    char *connector = connector_symbol ? connector_symbol : "|";
+
+    while (cursor)
+    {
         format(cursor->data);
         printf(" %s ", connector);
         cursor = cursor->next;
     }
-    
-    printf("END\n");
+
+    printf("\n");
 }
 
 // Getters
@@ -192,4 +194,3 @@ unsigned long int owl_sll_length(owl_sll_t *list)
 {
     return list->length;
 }
-
