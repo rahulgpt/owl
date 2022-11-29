@@ -47,7 +47,7 @@ void *owl_queue_dequeue(owl_queue_t *queue)
     return data;
 }
 
-void owl_queue_print(owl_queue_t *queue, void (*format)(void *data), void *connection_sym)
+void owl_queue_print(owl_queue_t *queue, void (*format)(void *data), char *connection_sym)
 {
     if (!owl_sll_length(queue->_internal_list))
     {

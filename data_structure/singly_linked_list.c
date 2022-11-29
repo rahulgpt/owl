@@ -149,7 +149,7 @@ void *owl_sll_fremove(owl_sll_t *list)
     return data;
 }
 
-void owl_sll_print(owl_sll_t *list, void (*format)(void *data), void *connection_sym)
+void owl_sll_print(owl_sll_t *list, void (*format)(void *data), char *connection_sym)
 {
     if (!list->length)
     {
