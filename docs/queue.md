@@ -13,29 +13,32 @@ typedef struct
     int id;
 } job_t;
 
-int main(int argc, const char* argv[]) {
-    job_t job = {1};
-    job_t job2 = {2};
-    job_t job3 = {3};
+void format(void *data) {
+    job_t *d = data;
+    printf("%d", d->id);
+}
 
+int main(int argc, const char* argv[]) {
     // Initializing a queue where each item is `job_t`. The first argument
     // is the size of the data and the second argument is the max capacity
     // of the queue.
     owl_queue_t *queue = owl_queue_init(sizeof(job_t), 3);
 
     // Enqueue three jobs in the queue.
-    owl_queue_enqueue(queue, &job);
-    owl_queue_enqueue(queue, &job2);
-    owl_queue_enqueue(queue, &job3);
-
+    owl_queue_enqueue(queue, &(job_t){ .id=1 });
+    owl_queue_enqueue(queue, &(job_t){ .id=2 });
+    owl_queue_enqueue(queue, &(job_t){ .id=3 });
 
     // Enqueueing the fourth job will result in a bad status (-1).
     // If the job is enqueud the function will return 0.
-    int status = owl_queue_enqueue(queue, &job2);
+    int status = owl_queue_enqueue(queue, &(job_t){ .id=4 });
     printf("status: %d\n", status);
 
     // Checking the items in the queue
     printf("n_items: %lu\n", owl_queue_n_items(queue));
+
+    // print the state of the queue
+    owl_queue_print(queue, format, NULL);
 
     owl_queue_dequeue(queue);
     owl_queue_dequeue(queue);
@@ -52,6 +55,7 @@ int main(int argc, const char* argv[]) {
 /* Ouput
 status: -1
 n_items: 3
+| 1 | 2 | 3 |
 NULL
 */
 
@@ -66,6 +70,7 @@ owl_queue_init         # allocate a new queue
 owl_queue_free         # deallocate the queue
 owl_queue_enqueue      # enqueue data in the queue
 owl_queue_dequeue      # dequeue data from the queue
+owl_sll_print          # print the state of the queue
 owl_queue_is_empty     # check if the queue is empty
 owl_queue_is_full      # check if the queue is full
 ```
@@ -86,6 +91,7 @@ int owl_queue_enqueue(owl_queue_t *queue, void *data);
 void *owl_queue_dequeue(owl_queue_t *queue);
 bool owl_queue_is_empty(owl_queue_t *queue);
 bool owl_queue_is_full(owl_queue_t *queue);
+void owl_queue_print(owl_queue_t *queue, void (*format)(void *data), void *connection_sym);
 
 // Getters
 u_long owl_queue_max_capacity(owl_queue_t *queue);

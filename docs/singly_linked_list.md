@@ -16,21 +16,18 @@ typedef struct
 
 // The format function to print the data.
 void format(void* data) {
-    data_t* casted_data = (data_t*)data;
-    printf("{ %d, %s }", casted_data->id, casted_data->name);
+    data_t* d = data;
+    printf("{ %d, %s }", d->id, d->name);
 }
 
 int main(int argc, const char* argv[]) {
-    data_t data = {1, "Alice"};
-    data_t data2 = {2, "Bob"};
-
     // create a new list where each item is a `data_t`. The first
     // argument is the size of the data.
     owl_sll_t* list = owl_sll_init(sizeof(data_t));
 
     // Here we'll load some data into the list. Insert operations performs a copy of the data.
-    owl_sll_finsert(list, &data);
-    owl_sll_finsert(list, &data2);
+    owl_sll_finsert(list, &(data_t){ .id=1, .name="Alice" });
+    owl_sll_finsert(list, &(data_t){ .id=2, .name="Bob" });
 
     // Print function takes in a custom format function that will
     // print the data. The last argument is a optional symbol that
@@ -81,7 +78,7 @@ void owl_sll_binsert(owl_sll_t *list, void *data);
 void *owl_sll_bremove(owl_sll_t *list);
 void owl_sll_finsert(owl_sll_t *list, void *data);
 void *owl_sll_fremove(owl_sll_t *list);
-void owl_sll_print(owl_sll_t *list, void (*format)(void *data), void *connector_symbol); // The last argument should be a char *
+void owl_sll_print(owl_sll_t *list, void (*format)(void *data), void *connection_sym);
 
 // Getters
 owl_sll_node_t *owl_sll_head(owl_sll_t *list);
