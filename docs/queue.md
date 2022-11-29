@@ -91,7 +91,7 @@ int owl_queue_enqueue(owl_queue_t *queue, void *data);
 void *owl_queue_dequeue(owl_queue_t *queue);
 bool owl_queue_is_empty(owl_queue_t *queue);
 bool owl_queue_is_full(owl_queue_t *queue);
-void owl_queue_print(owl_queue_t *queue, void (*format)(void *data), void *connection_sym);
+void owl_queue_print(owl_queue_t *queue, void (*format)(void *data), char *connection_sym);
 
 // Getters
 u_long owl_queue_max_capacity(owl_queue_t *queue);
