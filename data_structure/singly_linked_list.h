@@ -1,10 +1,3 @@
-//
-//  linked_list.h
-//  libowl
-//
-//  Created by Rahul Gupta on 27/09/22.
-//
-
 #ifndef linked_list_h
 #define linked_list_h
 
@@ -14,7 +7,7 @@ typedef struct Node
 {
     unsigned int id;
     void *data;
-    struct Node* next;
+    struct Node *next;
 } owl_sll_node_t;
 
 typedef struct SinglyLinkedList owl_sll_t;

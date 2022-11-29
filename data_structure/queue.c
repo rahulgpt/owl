@@ -1,10 +1,3 @@
-//
-//  queue.c
-//  libowl
-//
-//  Created by Rahul Gupta on 27/09/22.
-//
-
 #include "queue.h"
 #include "singly_linked_list.h"
 #include <stdbool.h>

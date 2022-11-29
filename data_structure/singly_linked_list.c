@@ -1,10 +1,3 @@
-//
-//  linked_list.c
-//  libowl
-//
-//  Created by Rahul Gupta on 27/09/22.
-//
-
 #include "singly_linked_list.h"
 #include <stdio.h>
 #include <stdlib.h>

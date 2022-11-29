@@ -1,10 +1,3 @@
-//
-//  queue.h
-//  libowl
-//
-//  Created by Rahul Gupta on 27/09/22.
-//
-
 #ifndef queue_h
 #define queue_h
 
