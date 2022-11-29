@@ -9,7 +9,7 @@
 typedef struct queue owl_queue_t;
 
 owl_queue_t *owl_queue_init(size_t size, u_long capacity);
-void owl_queue_destroy(owl_queue_t *queue);
+void owl_queue_free(owl_queue_t *queue);
 int owl_queue_enqueue(owl_queue_t *queue, void *data);
 void *owl_queue_dequeue(owl_queue_t *queue);
 bool owl_queue_is_empty(owl_queue_t *queue);

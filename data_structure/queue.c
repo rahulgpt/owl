@@ -26,9 +26,9 @@ owl_queue_t *owl_queue_init(size_t size, u_long capacity)
     return queue;
 }
 
-void owl_queue_destroy(owl_queue_t *queue)
+void owl_queue_free(owl_queue_t *queue)
 {
-    owl_sll_destroy(queue->_internal_list);
+    owl_sll_free(queue->_internal_list);
     free(queue);
 }
 

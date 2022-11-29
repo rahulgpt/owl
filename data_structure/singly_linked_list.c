@@ -25,11 +25,10 @@ owl_sll_t *owl_sll_init(size_t size)
     return list;
 }
 
-/*
-    This method will deallocate the linked list
-    and the data.
- */
-void owl_sll_destroy(owl_sll_t *list)
+// This method will deallocate the linked list
+// and the data.
+// Todo: add custom deep free fn
+void owl_sll_free(owl_sll_t *list)
 {
     if (!list->length)
     {
@@ -64,7 +63,7 @@ static owl_sll_node_t *node_init(void *data, size_t size)
     return node;
 }
 
-static void node_destroy(owl_sll_node_t *node)
+static void node_free(owl_sll_node_t *node)
 {
     if (!node) return;
     // break any link if exist
@@ -100,7 +99,7 @@ void *owl_sll_bremove(owl_sll_t *list)
 
     void *data = cursor->data;
 
-    node_destroy(cursor->next);
+    node_free(cursor->next);
     list->tail = cursor;
     list->tail->next = NULL;
     list->length--;
@@ -135,10 +134,10 @@ void *owl_sll_fremove(owl_sll_t *list)
     if (!list->length) return NULL;
 
     void *data = list->head->data;
-    owl_sll_node_t *node_to_destroy = list->head;
+    owl_sll_node_t *node_to_free = list->head;
 
     list->head = list->head->next;
-    node_destroy(node_to_destroy);
+    node_free(node_to_free);
     list->length--;
 
     if (list->length == 0)
