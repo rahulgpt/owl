@@ -40,7 +40,7 @@ int main(int argc, const char* argv[]) {
     printf("length: %lu\n", owl_sll_length(list));
 
     // deallocate resources
-    owl_sll_destroy(list);
+    owl_sll_free(list);
 }
 
 /* Ouput
@@ -56,7 +56,7 @@ length: 1
 
 ```sh
 owl_sll_init     # allocate a new linked list
-owl_sll_destroy  # free the linked list
+owl_sll_free     # free the linked list
 owl_sll_finsert  # forward insert a new node
 owl_sll_binsert  # backward insert a new node
 owl_sll_fremove  # remove and return a node's data from forward
@@ -76,7 +76,7 @@ owl_sll_length   # get the current length
 
 ```c
 owl_sll_t *owl_sll_init(size_t size); // return an opaque handle to the linked list. The first argument is the size of the data.
-void owl_sll_destroy(owl_sll_t *list);
+void owl_sll_free(owl_sll_t *list);
 void owl_sll_binsert(owl_sll_t *list, void *data);
 void *owl_sll_bremove(owl_sll_t *list);
 void owl_sll_finsert(owl_sll_t *list, void *data);

@@ -1,6 +1,6 @@
 # q.c
 
-[Queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)) implementation in c.
+[Queue](<https://en.wikipedia.org/wiki/Queue_(abstract_data_type)>) implementation in c.
 
 ## Example
 
@@ -45,7 +45,7 @@ int main(int argc, const char* argv[]) {
     job_t *data = owl_queue_dequeue(queue);
     data ? printf("job_id: %d\n", data->id) : printf("NULL\n");
 
-    owl_queue_destroy(queue);
+    owl_queue_free(queue);
 }
 
 
@@ -63,7 +63,7 @@ NULL
 
 ```sh
 owl_queue_init         # allocate a new queue
-owl_queue_destroy      # deallocate the queue
+owl_queue_free         # deallocate the queue
 owl_queue_enqueue      # enqueue data in the queue
 owl_queue_dequeue      # dequeue data from the queue
 owl_queue_is_empty     # check if the queue is empty
@@ -81,7 +81,7 @@ owl_queue_n_items       # get the current no of items
 
 ```c
 owl_queue_t *owl_queue_init(size_t size, u_long capacity); // return an opaque handle to the queue. The first argument is the size of the data.
-void owl_queue_destroy(owl_queue_t *queue);
+void owl_queue_free(owl_queue_t *queue);
 int owl_queue_enqueue(owl_queue_t *queue, void *data);
 void *owl_queue_dequeue(owl_queue_t *queue);
 bool owl_queue_is_empty(owl_queue_t *queue);
@@ -91,4 +91,3 @@ bool owl_queue_is_full(owl_queue_t *queue);
 u_long owl_queue_max_capacity(owl_queue_t *queue);
 u_long owl_queue_n_items(owl_queue_t *queue);
 ```
-
