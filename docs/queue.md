@@ -35,7 +35,7 @@ int main(int argc, const char* argv[]) {
     printf("status: %d\n", status);
 
     // Checking the items in the queue
-    printf("n_items: %lu\n", owl_queue_n_items(queue));
+    printf("n_items: %zu\n", owl_queue_n_items(queue));
 
     // print the state of the queue
     owl_queue_print(queue, format, NULL);

@@ -35,7 +35,7 @@ int main(int argc, const char* argv[]) {
     // will be used to represent connection between two nodes.
     owl_sll_print(list, format, "-");
     data_t *data = owl_sll_fremove(list);
-    printf("length: %lu\n", owl_sll_length(list));
+    printf("length: %zu\n", owl_sll_length(list));
 
     // deallocate resources
     owl_sll_free(list);
@@ -84,5 +84,5 @@ void owl_sll_print(owl_sll_t *list, void (*format)(void *data), char *connection
 // Getters
 owl_sll_node_t *owl_sll_head(owl_sll_t *list);
 owl_sll_node_t *owl_sll_tail(owl_sll_t *list);
-unsigned long int owl_sll_length(owl_sll_t *list);
+size_t owl_sll_length(owl_sll_t *list);
 ```
