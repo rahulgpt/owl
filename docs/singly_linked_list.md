@@ -22,8 +22,9 @@ void format(void* data) {
 
 int main(int argc, const char* argv[]) {
     // create a new list where each item is a `data_t`. The first
-    // argument is the size of the data.
-    owl_sll_t* list = owl_sll_init(sizeof(data_t));
+    // argument is the size of the data and the second argument is
+    // a custom free function.
+    owl_sll_t* list = owl_sll_init(sizeof(data_t), NULL);
 
     // Here we'll load some data into the list. Insert operations performs a copy of the data.
     owl_sll_finsert(list, &(data_t){ .id=1, .name="Alice" });
@@ -72,7 +73,7 @@ owl_sll_length   # get the current length
 ## API
 
 ```c
-owl_sll_t *owl_sll_init(size_t size); // return an opaque handle to the linked list. The first argument is the size of the data.
+owl_sll_t *owl_sll_init(size_t size, void (*elfree)(void *data)); // return a handle to the list.
 void owl_sll_free(owl_sll_t *list);
 void owl_sll_binsert(owl_sll_t *list, void *data);
 void *owl_sll_bremove(owl_sll_t *list);
