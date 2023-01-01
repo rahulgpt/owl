@@ -11,17 +11,19 @@ typedef struct SinglyLinkedList
     owl_sll_node_t *tail;
     u_long length;
     size_t size;
+    void (*el_free)(void *data);
 } owl_sll_t;
 
 //
 
-owl_sll_t *owl_sll_init(size_t size)
+owl_sll_t *owl_sll_init(size_t size, void (*el_free)(void *data))
 {
     owl_sll_t *list = malloc(sizeof(owl_sll_t));
     list->head = NULL;
     list->tail = NULL;
     list->length = 0;
     list->size = size;
+    list->el_free = el_free ? el_free : free;
     return list;
 }
 
@@ -37,12 +39,14 @@ void owl_sll_free(owl_sll_t *list)
     }
 
     owl_sll_node_t *cursor = list->head;
+    owl_sll_node_t *prev = NULL;
 
     while (cursor)
     {
-        free(cursor->data);
-        free(cursor);
+        list->el_free(cursor->data);
+        prev = cursor;
         cursor = cursor->next;
+        free(prev);
     }
 
     free(list);
@@ -63,11 +67,12 @@ static owl_sll_node_t *node_init(void *data, size_t size)
     return node;
 }
 
-static void node_free(owl_sll_node_t *node)
+static void node_free(owl_sll_t *list, owl_sll_node_t *node)
 {
     if (!node) return;
     // break any link if exist
     node->next = NULL;
+    list->el_free(node->data);
     free(node);
 }
 
@@ -99,7 +104,7 @@ void *owl_sll_bremove(owl_sll_t *list)
 
     void *data = cursor->data;
 
-    node_free(cursor->next);
+    node_free(list, cursor->next);
     list->tail = cursor;
     list->tail->next = NULL;
     list->length--;
@@ -137,7 +142,7 @@ void *owl_sll_fremove(owl_sll_t *list)
     owl_sll_node_t *node_to_free = list->head;
 
     list->head = list->head->next;
-    node_free(node_to_free);
+    node_free(list, node_to_free);
     list->length--;
 
     if (list->length == 0)
