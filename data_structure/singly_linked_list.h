@@ -24,6 +24,6 @@ void owl_sll_print(owl_sll_t *list, void (*format)(void *data), char *connector_
 
 owl_sll_node_t *owl_sll_head(owl_sll_t *list);
 owl_sll_node_t *owl_sll_tail(owl_sll_t *list);
-unsigned long int owl_sll_length(owl_sll_t *list);
+size_t owl_sll_length(owl_sll_t *list);
 
 #endif /* linked_list_h */

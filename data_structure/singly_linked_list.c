@@ -9,7 +9,7 @@ typedef struct SinglyLinkedList
 {
     owl_sll_node_t *head;
     owl_sll_node_t *tail;
-    u_long length;
+    size_t length;
     size_t size;
     void (*el_free)(void *data);
 } owl_sll_t;
@@ -187,7 +187,7 @@ owl_sll_node_t *owl_sll_tail(owl_sll_t *list)
     return list->tail;
 }
 
-unsigned long int owl_sll_length(owl_sll_t *list)
+size_t owl_sll_length(owl_sll_t *list)
 {
     return list->length;
 }
