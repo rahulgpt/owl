@@ -2,7 +2,6 @@
 #include "singly_linked_list.h"
 #include <stdbool.h>
 #include <stdlib.h>
-#include <sys/types.h>
 
 /* Opaque type */
 
@@ -10,16 +9,16 @@ typedef struct queue
 {
     owl_sll_t *_internal_list;
     size_t size;
-    u_long max_capacity;
-    u_long n_items;
+    size_t max_capacity;
+    size_t n_items;
 } owl_queue_t;
 
 //
 
-owl_queue_t *owl_queue_init(size_t size, u_long capacity)
+owl_queue_t *owl_queue_init(size_t size, size_t capacity, void (*el_free)(void *data))
 {
     owl_queue_t *queue = malloc(sizeof(owl_queue_t));
-    queue->_internal_list = owl_sll_init(size);
+    queue->_internal_list = owl_sll_init(size, el_free);
     queue->size = size;
     queue->max_capacity = capacity;
     queue->n_items = 0;
@@ -82,12 +81,12 @@ bool owl_queue_is_full(owl_queue_t *queue)
 
 // Getters
 
-u_long owl_queue_max_capacity(owl_queue_t *queue)
+size_t owl_queue_max_capacity(owl_queue_t *queue)
 {
     return queue->max_capacity;
 }
 
-u_long owl_queue_n_items(owl_queue_t *queue)
+size_t owl_queue_n_items(owl_queue_t *queue)
 {
     return queue->n_items;
 }
