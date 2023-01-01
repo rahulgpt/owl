@@ -85,7 +85,7 @@ owl_queue_n_items       # get the current no of items
 ## API
 
 ```c
-owl_queue_t *owl_queue_init(size_t size, u_long capacity); // return an opaque handle to the queue. The first argument is the size of the data.
+owl_queue_t *owl_queue_init(size_t size, size_t capacity, void (*el_free)(void *data)); // returns a handle to the list
 void owl_queue_free(owl_queue_t *queue);
 int owl_queue_enqueue(owl_queue_t *queue, void *data);
 void *owl_queue_dequeue(owl_queue_t *queue);
@@ -94,6 +94,6 @@ bool owl_queue_is_full(owl_queue_t *queue);
 void owl_queue_print(owl_queue_t *queue, void (*format)(void *data), char *connection_sym);
 
 // Getters
-u_long owl_queue_max_capacity(owl_queue_t *queue);
-u_long owl_queue_n_items(owl_queue_t *queue);
+size_t owl_queue_max_capacity(owl_queue_t *queue);
+size_t owl_queue_n_items(owl_queue_t *queue);
 ```
