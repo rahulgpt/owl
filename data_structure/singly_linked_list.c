@@ -67,12 +67,13 @@ static owl_sll_node_t *node_init(void *data, size_t size)
     return node;
 }
 
-static void node_free(owl_sll_t *list, owl_sll_node_t *node)
+// free's the node without freeing the data as we want to return the
+// pointer to the data. It's upto the user to free the data.
+static void node_free_without_data(owl_sll_t *list, owl_sll_node_t *node)
 {
     if (!node) return;
     // break any link if exist
     node->next = NULL;
-    list->el_free(node->data);
     free(node);
 }
 
@@ -104,7 +105,7 @@ void *owl_sll_bremove(owl_sll_t *list)
 
     void *data = cursor->data;
 
-    node_free(list, cursor->next);
+    node_free_without_data(list, cursor->next);
     list->tail = cursor;
     list->tail->next = NULL;
     list->length--;
@@ -142,7 +143,7 @@ void *owl_sll_fremove(owl_sll_t *list)
     owl_sll_node_t *node_to_free = list->head;
 
     list->head = list->head->next;
-    node_free(list, node_to_free);
+    node_free_without_data(list, node_to_free);
     list->length--;
 
     if (list->length == 0)
