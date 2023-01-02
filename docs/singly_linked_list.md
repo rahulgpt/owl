@@ -34,7 +34,13 @@ int main(int argc, const char* argv[]) {
     // print the data. The last argument is a optional symbol that
     // will be used to represent connection between two nodes.
     owl_sll_print(list, format, "-");
+
+    // returns the pointer to the data on the heap.
     data_t *data = owl_sll_fremove(list);
+
+    // free the data when we are done.
+    free(data);
+
     printf("length: %zu\n", owl_sll_length(list));
 
     // deallocate resources

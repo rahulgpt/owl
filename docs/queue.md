@@ -24,7 +24,8 @@ int main(int argc, const char* argv[]) {
     // of the queue.
     owl_queue_t *queue = owl_queue_init(sizeof(job_t), 3);
 
-    // Enqueue three jobs in the queue.
+    // Enqueue three jobs in the queue. Enqueue operations performs a
+    // copy of the data.
     owl_queue_enqueue(queue, &(job_t){ .id=1 });
     owl_queue_enqueue(queue, &(job_t){ .id=2 });
     owl_queue_enqueue(queue, &(job_t){ .id=3 });
@@ -40,9 +41,11 @@ int main(int argc, const char* argv[]) {
     // print the state of the queue
     owl_queue_print(queue, format, NULL);
 
-    owl_queue_dequeue(queue);
-    owl_queue_dequeue(queue);
-    owl_queue_dequeue(queue);
+    // Dequeu will return the pointer to the data on the heap.
+    // We have to free the data after we are done.
+    free(owl_queue_dequeue(queue));
+    free(owl_queue_dequeue(queue));
+    free(owl_queue_dequeue(queue));
 
     // Dequeue will return `NULL` if the queue is empty.
     job_t *data = owl_queue_dequeue(queue);
