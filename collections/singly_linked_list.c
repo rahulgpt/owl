@@ -10,19 +10,19 @@ typedef struct SinglyLinkedList
     owl_sll_node_t *head;
     owl_sll_node_t *tail;
     size_t length;
-    size_t size;
+    size_t el_size;
     void (*el_free)(void *data);
 } owl_sll_t;
 
 //
 
-owl_sll_t *owl_sll_init(size_t size, void (*el_free)(void *data))
+owl_sll_t *owl_sll_init(size_t el_size, void (*el_free)(void *data))
 {
     owl_sll_t *list = malloc(sizeof(owl_sll_t));
     list->head = NULL;
     list->tail = NULL;
     list->length = 0;
-    list->size = size;
+    list->el_size = el_size;
     list->el_free = el_free ? el_free : free;
     return list;
 }
@@ -52,14 +52,14 @@ void owl_sll_free(owl_sll_t *list)
     free(list);
 }
 
-static owl_sll_node_t *node_init(void *data, size_t size)
+static owl_sll_node_t *node_init(void *data, size_t el_size)
 {
     static unsigned int id = 0;
     owl_sll_node_t *node = malloc(sizeof(owl_sll_node_t));
-    node->data = malloc(size);
+    node->data = malloc(el_size);
 
     // copy the content of the data
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < el_size; i++)
         *(char *)(node->data + i) = *(char *)(data + i);
 
     node->next = NULL;
@@ -79,7 +79,7 @@ static void node_free_without_data(owl_sll_t *list, owl_sll_node_t *node)
 
 void owl_sll_binsert(owl_sll_t *list, void *data)
 {
-    owl_sll_node_t *node = node_init(data, list->size);
+    owl_sll_node_t *node = node_init(data, list->el_size);
     if (!list->head)
     {
         list->head = node;
@@ -121,7 +121,7 @@ void *owl_sll_bremove(owl_sll_t *list)
 
 void owl_sll_finsert(owl_sll_t *list, void *data)
 {
-    owl_sll_node_t *node = node_init(data, list->size);
+    owl_sll_node_t *node = node_init(data, list->el_size);
     if (!list->head)
     {
         list->head = node;

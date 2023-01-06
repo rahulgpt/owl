@@ -8,18 +8,18 @@
 typedef struct queue
 {
     owl_sll_t *_internal_list;
-    size_t size;
+    size_t el_size;
     size_t max_capacity;
     size_t n_items;
 } owl_queue_t;
 
 //
 
-owl_queue_t *owl_queue_init(size_t size, size_t capacity, void (*el_free)(void *data))
+owl_queue_t *owl_queue_init(size_t el_size, size_t capacity, void (*el_free)(void *data))
 {
     owl_queue_t *queue = malloc(sizeof(owl_queue_t));
-    queue->_internal_list = owl_sll_init(size, el_free);
-    queue->size = size;
+    queue->_internal_list = owl_sll_init(el_size, el_free);
+    queue->el_size = el_size;
     queue->max_capacity = capacity;
     queue->n_items = 0;
     return queue;

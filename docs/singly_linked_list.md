@@ -79,7 +79,7 @@ owl_sll_length   # get the current length
 ## API
 
 ```c
-owl_sll_t *owl_sll_init(size_t size, void (*el_free)(void *data)); // return a handle to the list.
+owl_sll_t *owl_sll_init(size_t el_size, void (*el_free)(void *data)); // return a handle to the list.
 void owl_sll_free(owl_sll_t *list);
 void owl_sll_binsert(owl_sll_t *list, void *data);
 void *owl_sll_bremove(owl_sll_t *list);
