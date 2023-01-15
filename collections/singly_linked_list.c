@@ -5,7 +5,7 @@
 
 /* Opaque type */
 
-typedef struct __opaq__sll
+typedef struct __opaq_owl__sll
 {
     owl_sll_node_t *head;
     owl_sll_node_t *tail;

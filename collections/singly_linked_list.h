@@ -10,7 +10,7 @@ typedef struct owl__Node
     struct owl__Node *next;
 } owl_sll_node_t;
 
-typedef struct __opaq__sll owl_sll_t;
+typedef struct __opaq_owl__sll owl_sll_t;
 
 owl_sll_t *owl_sll_init(size_t el_size, void (*el_free)(void *data));
 void owl_sll_free(owl_sll_t *list);

@@ -5,7 +5,7 @@
 
 /* Opaque type */
 
-typedef struct __opaq__queue
+typedef struct __opaq_owl__queue
 {
     owl_sll_t *_internal_list;
     size_t el_size;
