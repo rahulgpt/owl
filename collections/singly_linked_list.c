@@ -5,7 +5,7 @@
 
 /* Opaque type */
 
-typedef struct SinglyLinkedList
+typedef struct __opaq__sll
 {
     owl_sll_node_t *head;
     owl_sll_node_t *tail;

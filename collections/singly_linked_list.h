@@ -3,14 +3,14 @@
 
 #include <stdlib.h>
 
-typedef struct Node
+typedef struct owl__Node
 {
     unsigned int id;
     void *data;
-    struct Node *next;
+    struct owl__Node *next;
 } owl_sll_node_t;
 
-typedef struct SinglyLinkedList owl_sll_t;
+typedef struct __opaq__sll owl_sll_t;
 
 owl_sll_t *owl_sll_init(size_t el_size, void (*el_free)(void *data));
 void owl_sll_free(owl_sll_t *list);

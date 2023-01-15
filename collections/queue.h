@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-typedef struct queue owl_queue_t;
+typedef struct __opaq__queue owl_queue_t;
 
 owl_queue_t *owl_queue_init(size_t el_size, size_t capacity, void (*el_free)(void *data));
 void owl_queue_free(owl_queue_t *queue);
