@@ -33,7 +33,7 @@ owl_thread_pool_t *owl_thread_pool_init(int num_threads)
     tp->active = 1;
     tp->lock = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
     tp->signal = (pthread_cond_t)PTHREAD_COND_INITIALIZER;
-    tp->work_q = owl_queue_init(sizeof(owl_thread_job_t), SIZE_MAX, NULL);
+    tp->work_q = owl_queue_init(sizeof(owl_worker_task_t), SIZE_MAX, NULL);
 
     pthread_mutex_lock(&tp->lock);
     tp->worker_pool = calloc(num_threads, sizeof(pthread_t));
@@ -68,7 +68,7 @@ void owl_thread_pool_free(owl_thread_pool_t *tp)
 static void *worker_fn(void *arg)
 {
     owl_thread_pool_t *tp = arg;
-    owl_thread_job_t *job = NULL;
+    owl_worker_task_t *task = NULL;
 
     while (!owl_queue_is_empty(tp->work_q) || tp->active == 1)
     {
@@ -77,29 +77,29 @@ static void *worker_fn(void *arg)
         if (tp->active && owl_queue_is_empty(tp->work_q))
             pthread_cond_wait(&tp->signal, &tp->lock);
 
-        job = owl_queue_dequeue(tp->work_q);
+        task = owl_queue_dequeue(tp->work_q);
 
         pthread_mutex_unlock(&tp->lock);
-        if (!job && job->execute) job->execute(job->arg);
-        free(job);
+        if (task != NULL && task->execute) task->execute(task->arg);
+        free(task);
     }
 
     return NULL;
 }
 
-owl_thread_job_t owl_thread_job_init(void *(*execute)(void *arg), void *arg)
+owl_worker_task_t owl_worker_task_init(void *(*execute)(void *arg), void *arg)
 {
-    owl_thread_job_t job;
-    job.execute = execute;
-    job.arg = arg;
-    return job;
+    owl_worker_task_t task;
+    task.execute = execute;
+    task.arg = arg;
+    return task;
 }
 
-int owl_thread_pool_enqueue_work(owl_thread_pool_t *tp, owl_thread_job_t thread_job)
+int owl_thread_pool_enqueue_task(owl_thread_pool_t *tp, owl_worker_task_t worker_task)
 {
     if (!tp) owl_panic("Thread Pool is Null");
     pthread_mutex_lock(&tp->lock);
-    int status = owl_queue_enqueue(tp->work_q, &thread_job);
+    int status = owl_queue_enqueue(tp->work_q, &worker_task);
     pthread_mutex_unlock(&tp->lock);
     pthread_cond_signal(&tp->signal);
     return status;
