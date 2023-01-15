@@ -1,5 +1,5 @@
-#ifndef queue_h
-#define queue_h
+#ifndef owl_queue_h
+#define owl_queue_h
 
 #include "singly_linked_list.h"
 #include <stdbool.h>
@@ -20,4 +20,4 @@ void owl_queue_print(owl_queue_t *queue, void (*format)(void *data), char *conne
 size_t owl_queue_max_capacity(owl_queue_t *queue);
 size_t owl_queue_n_items(owl_queue_t *queue);
 
-#endif /* queue_h */
+#endif /* owl_queue_h */

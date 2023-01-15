@@ -1,5 +1,5 @@
-#ifndef linked_list_h
-#define linked_list_h
+#ifndef owl_singly_linked_list_h
+#define owl_singly_linked_list_h
 
 #include <stdlib.h>
 
@@ -26,4 +26,4 @@ owl_sll_node_t *owl_sll_head(owl_sll_t *list);
 owl_sll_node_t *owl_sll_tail(owl_sll_t *list);
 size_t owl_sll_length(owl_sll_t *list);
 
-#endif /* linked_list_h */
+#endif /* owl_singly_linked_list_h */
