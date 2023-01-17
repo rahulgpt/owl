@@ -95,11 +95,11 @@ owl_worker_task_t owl_worker_task_init(void *(*execute)(void *arg), void *arg)
     return task;
 }
 
-int owl_thread_pool_enqueue_task(owl_thread_pool_t *tp, owl_worker_task_t worker_task)
+int owl_thread_pool_enqueue_task(owl_thread_pool_t *tp, owl_worker_task_t *worker_task)
 {
     if (!tp) owl_panic("Thread Pool is Null");
     pthread_mutex_lock(&tp->lock);
-    int status = owl_queue_enqueue(tp->work_q, &worker_task);
+    int status = owl_queue_enqueue(tp->work_q, worker_task);
     pthread_mutex_unlock(&tp->lock);
     pthread_cond_signal(&tp->signal);
     return status;

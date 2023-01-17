@@ -43,9 +43,9 @@ int main(int argc, const char *argv[])
     owl_worker_task_t t1 = owl_worker_task_init(task1, NULL);
     owl_worker_task_t t2 = owl_worker_task_init(task2, NULL);
     owl_worker_task_t t3 = owl_worker_task_init(task3, NULL);
-    owl_thread_pool_enqueue_task(tp, t1);
-    owl_thread_pool_enqueue_task(tp, t2);
-    owl_thread_pool_enqueue_task(tp, t3);
+    owl_thread_pool_enqueue_task(tp, &t1);
+    owl_thread_pool_enqueue_task(tp, &t2);
+    owl_thread_pool_enqueue_task(tp, &t3);
 
     // Free will wait for the threads to complete all of the
     // tasks in the work queue
@@ -72,5 +72,5 @@ owl_thread_pool_enqueue_task    # enqueue the task
 owl_thread_pool_t *owl_thread_pool_init(int num_threads);
 void owl_thread_pool_free(owl_thread_pool_t *tp);
 owl_worker_task_t owl_worker_task_init(void *(*execute)(void *arg), void *arg);
-int owl_thread_pool_enqueue_task(owl_thread_pool_t *tp, owl_worker_task_t worker_task);
+int owl_thread_pool_enqueue_task(owl_thread_pool_t *tp, owl_worker_task_t *worker_task);
 ```
