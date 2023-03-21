@@ -1,6 +1,6 @@
 # hashmap.c
 
-[Hashmap](https://en.wikipedia.org/wiki/Hash_table) implementation based on Open addressing using Robin Hood hashing in c.
+[Hashmap](https://en.wikipedia.org/wiki/Hash_table) implementation based on [Open addressing](https://en.wikipedia.org/wiki/Hash_table#Open_addressing) using [Robin Hood](https://en.wikipedia.org/wiki/Hash_table#Robin_Hood_hashing) hashing in c.
 
 ## Example
 
