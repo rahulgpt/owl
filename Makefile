@@ -20,24 +20,19 @@ main: $(OBJS)
 # main: main.o libowl.a
 # 	$(CC) $(CFLAGS) -o $@ $^ -L. -lowl
 
-*/%.o: %.c
+$(OBJDIR)/%.o: %.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-*/%.o: */%.c
+$(OBJDIR)/%.o: */%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 libowl.a: $(OBJS)
 	ar -rcs libowl.a $^
 
-# Todo: add ordered prerequisite to
-# create dir out 
-# https://www.gnu.org/savannah-checkouts/gnu/make/manual/html_node/Prerequisite-Types.html#Prerequisite-Types
-# $(OBJS): | $(OBJDIR)
-
-# $(OBJDIR):
-# 	mkdir $(OBJDIR)
+$(OBJDIR):
+	mkdir $(OBJDIR)
 
 .PHONY: clean all
 
 clean:
-	rm -rf *.o */*.o main libowl.a
+	rm -rf *.o */*.o main libowl.a $(OBJDIR)
