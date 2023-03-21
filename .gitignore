@@ -1,6 +1,6 @@
 .DS_Store
 .vscode
 libowl.xcodeproj
-out
 main
-libowl.a
+out/
+lib/
