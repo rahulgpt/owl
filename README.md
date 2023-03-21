@@ -8,6 +8,7 @@ A general purpose c lib.
 
 - [singly_linked_list](./docs/singly_linked_list.md)
 - [queue](./docs/queue.md)
+- [hashmap](./docs/hashmap.md)
 
 ### systems
 
