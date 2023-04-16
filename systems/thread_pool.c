@@ -1,6 +1,7 @@
 #include "thread_pool.h"
 #include "../utils/panic.h"
 #include <limits.h>
+#include <stdint.h>
 #include <string.h>
 #include <unistd.h>
 
